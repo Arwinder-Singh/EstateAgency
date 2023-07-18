@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+              <h1 class="title-single">{{info.first_name}} {{info.last_name}}</h1>
+              <span class="color-text-a">Agent</span>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4">
+            <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="/agentGrid/">Agents</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  {{info.first_name}} {{info.last_name}}
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Intro Single -->
+
+    <!-- ======= Agent Single ======= -->
+    <section class="agent-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="agent-avatar-box">
+                  <img src="{{info.profile_pic.url}}" alt="" class="agent-avatar img-fluid">
+                </div>
+              </div>
+              <div class="col-md-5 section-md-t3">
+                <div class="agent-info-box">
+                  <div class="agent-title">
+                    <div class="title-box-d">
+                      <h3 class="title-d">{{info.first_name}} {{info.middle_name}}
+                        <br> {{info.last_name}}
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="agent-content mb-3">
+                    <p class="content-d color-text-a">
+                      {{info.description}}
+                    </p>
+                    <div class="info-agents color-a">
+                      <p>
+                        <strong>Phone: </strong>
+                        <span class="color-text-a"> {{info.phone}} </span>
+                      </p>
+                      <p>
+                        <strong>Mobile: </strong>
+                        <span class="color-text-a"> {{info.mobile}}</span>
+                      </p>
+                      <p>
+                        <strong>Email: </strong>
+                        <span class="color-text-a"> {{info.email}}</span>
+                      </p>
+                      <p>
+                        <strong>skype: </strong>
+                        <span class="color-text-a"> {{info.skype}}</span>
+                      </p>
+                      {% comment %} <p>
+                        <strong>Email: </strong>
+                        <span class="color-text-a"> agents@example.com</span>
+                      </p> {% endcomment %}
+                    </div>
+                  </div>
+                  <div class="socials-footer">
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <a href="#" class="link-one">
+                          <i class="bi bi-facebook" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#" class="link-one">
+                          <i class="bi bi-twitter" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#" class="link-one">
+                          <i class="bi bi-instagram" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#" class="link-one">
+                          <i class="bi bi-linkedin" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 section-t8">
+            <div class="title-box-d">
+              <h3 class="title-d">My Properties ({{count}})</h3>
+            </div>
+          </div>
+          <div class="row property-grid grid">
+            {% comment %} <div class="col-sm-12"> 
+              <div class="grid-option">
+                <form  method="POST" action="">
+                  <select class="custom-select">
+        
+                    <option value="">select</option>
+                    <option value="Rent">For Rent</option>
+                    <option value="Sale">For Rent</option>
+                  </select>
+                </form>
+              </div>
+            </div> {% endcomment %}
+            {% for p,image in data %}
+            <div class="col-md-4">
+              <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  {% comment %} <img src="{% static '/img/property-1.jpg'%}" alt="" class="img-a img-fluid"> {% endcomment %}
+                  <img src="{{image.building.url}}" alt="" class="img-a img-fluid">
+                </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <a href="/property/{{p.id}}/">{{p.prop_name}}
+                          <br /> {{p.location}}</a>
+                      </h2>
+                    </div>
+                    <div class="card-body-a">
+                      <div class="price-box d-flex">
+                        <span class="price-a">{{p.status}} | $ {{p.price}}</span>
+                      </div>
+                      <a href="/property/{{p.id}}/" class="link-a">Click here to view
+                        <span class="bi bi-chevron-right"></span>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Area</h4>
+                          <span>{{p.area}}
+                            <sup>2</sup>
+                          </span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Beds</h4>
+                          <span>{{p.beds}}</span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Baths</h4>
+                          <span>{{p.baths}}</span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Garages</h4>
+                          <span>{{p.garage}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </div>
+    </section><!-- End Agent Single -->
+
+  </main><!-- End #main -->
+
+{% endblock %}
+

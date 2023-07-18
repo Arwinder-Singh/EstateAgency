@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block blogactive %} active{% endblock blogactive %}
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+              <h1 class="title-single">Our Amazing Posts</h1>
+              <span class="color-text-a">Blogs</span>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4">
+            <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Blogs
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Intro Single-->
+
+    <!-- =======  Blog Grid ======= -->
+    <section class="news-grid grid">
+      <div class="container">
+        <div class="row">
+          {% for b in page.object_list %}
+          <div class="col-md-4">
+            <div class="card-box-b card-shadow news-box" style="height:70%">
+              <div class="img-box-b">
+                <img src="{{b.image.url}}" alt="" class="img-b img-fluid">
+              </div>
+              <div class="card-overlay">
+                <div class="card-header-b">
+                  <div class="card-category-b">
+                    <a href="#" class="category-b">{{b.category}}</a>
+                  </div>
+                  <div class="card-title-b">
+                    <h2 class="title-2">
+                      <a href="/blog/{{b.id}}/">{{b.title}}
+                        </a>
+                    </h2>
+                  </div>
+                  <div class="card-date">
+                    <span class="date-b">{{b.date}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="pagination-a">
+              <ul class="pagination justify-content-end">
+                
+                <li class="page-item">
+                  {% if page.has_previous %}
+                  <a class="page-link" href="{% url 'blogGrid' %}?page={{page.previous_page_number}}" tabindex="-1">
+                    <span class="bi bi-chevron-left"></span>
+                  </a>
+                  {% endif %}
+                </li>
+                
+                {% for num_page in page.paginator.page_range%}
+                 {% if page.number == num_page %}
+                <li class="page-item active">
+                  <a class="page-link" href="{% url 'blogGrid' %}?page={{num_page}}">{{num_page}}</a>
+                </li>
+                 {% else %}
+                 <li class="page-item">
+                  <a class="page-link" href="{% url 'blogGrid' %}?page={{num_page}}">{{num_page}}</a>
+                </li>
+                {% endif %}
+
+                {% endfor %}
+                {% comment %} <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+                </li> {% endcomment %}
+                <li class="page-item next">
+                  {% if page.has_next %}
+                  <a class="page-link" href="{% url 'blogGrid' %}?page={{page.next_page_number}}">
+                    <span class="bi bi-chevron-right"></span>
+                  </a>
+                  {% endif %}
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Blog Grid-->
+
+  </main><!-- End #main -->
+
+{% endblock %}
